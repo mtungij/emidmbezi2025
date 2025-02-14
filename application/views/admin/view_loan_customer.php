@@ -160,39 +160,7 @@
 
 
 
-                <div class="col-lg-12">
-                    <div class="card">
-                          <div class="body">
-                            <div class="header">
-                              <h2>Local Government Information</h2>
-                            </div>
-                            <div class="table-responsive">
-                                <table class="table table-hover j-basic-example dataTable table-custom">
-                                    <thead class="thead-primary">
-                                        <tr>
-                                            
-                                            <th>Oficer Name</th>
-                                            <th>Phone Number</th>
-                                        </tr>
-                                    </thead>
-                                   
-                                    <tbody>
-                                        <?php $no = 1; ?>
-                                        
-                                        <tr>
-                                            <td><?php echo $local_oficer->oficer; ?> </td>
-                                            <td><?php echo $local_oficer->phone_oficer; ?></td>
-                                          </tr>
-                                    
-
-
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
+               
 
                 <div class="col-lg-12">
                     <div class="card">
@@ -265,18 +233,19 @@
 </div>
 
 <div class="col-lg-4 form-group-sub">
-<label  class="form-control-label"><b style="color:red;">Charge Loan Penalty?</b></label>
- <select type="text" name="penat_status" class="form-control input-sm" required style="color: red; border-color: red;">
-    <option value="">Select Charge Loan Penalty</option>
-    <option value="YES">YES</option>
-    <option value="NO">NO</option>
- </select>
+    <label class="form-control-label">
+        <b style="color:red;">Charge Loan Penalty?</b>
+    </label>
+    <select name="penat_status" class="form-control input-sm" required style="color: red; border-color: red;" onchange="this.value='YES'">
+        <option value="YES" selected>YES</option>
+    </select>
 </div>
 
 
 
+
     <div class="col-lg-4 form-group-sub">
-        <label  class="form-control-label"><b>Restoration Type</b></label>
+        <label  class="form-control-label"><b>Repayment Frequency</b></label>
        <textarea type="text" readonly class="form-control" style="height: 40px;"><?php if($loan_form->day == 1){
          echo "Daily";
      ?>
@@ -290,7 +259,7 @@
     </div>
 
     <div class="col-lg-6 form-group-sub">
-            <label  class="form-control-label"><b>Restoration Time</b></label>
+            <label  class="form-control-label"><b>Total Repayments</b></label>
     <input type="number" name="" placeholder="Restoration sessions" autocomplete="off" value="<?php echo $loan_form->session ?>" readonly class="form-control input-sm" >
         </div>
 
@@ -309,7 +278,7 @@
     <br>
 
     <div class="text-center">
-    <button type="submit" class="btn btn-primary"><i class="icon-drawer">Aprove</i></button>
+    <button type="submit" class="btn btn-primary"><i class="icon-drawer">Approve</i></button>
 
  
     <a href="<?php echo base_url("admin/reject_loan/{$loan_form->loan_id}"); ?>" class="btn btn-danger">Reject</a>

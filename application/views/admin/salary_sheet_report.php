@@ -36,7 +36,7 @@
 <b><?php echo $compdata->adress; ?></b> <br>
 <?php $day = date("d-m-Y"); ?>
 </p>
-<p style="font-size:12px;text-align:center;" class="c">SALARY SHEET REPORT / Date : <?php echo $day; ?></p>
+<p style="font-size:12px;text-align:center;" class="c">EMPLOYEE LIST REPORT / Date : <?php echo $day; ?></p>
 
 </div>
 </td>
@@ -76,9 +76,9 @@ tr:nth-child(even) {
     <th style="font-size:12px;border: none;">Name</th>
     <th style="font-size:12px;border: none;">Position</th>
     <th style="font-size:12px;border: none;">Phone number</th>
-    <th style="font-size:12px;border: none;">Account Name</th>
-    <th style="font-size:12px;border: none;">Account Number</th>
-    <th style="font-size:12px;border: none;">Amount</th>
+    <!-- <th style="font-size:12px;border: none;">Account Name</th>
+    <th style="font-size:12px;border: none;">Account Number</th> -->
+    <!-- <th style="font-size:12px;border: none;">Amount</th> -->
   </tr>
    <?php $no = 1; ?>
   <?php foreach ($blanch as $blanchs): 
@@ -112,21 +112,21 @@ tr:nth-child(even) {
    <td style="font-size:12px;border: none;" class="c"><?php echo $sheets->empl_name; ?></td>
    <td style="font-size:12px;border: none;" class="c"><?php echo $sheets->position; ?></td>
    <td style="font-size:12px;border: none;" class="c"><?php echo $sheets->empl_no; ?></td>
-   <td style="font-size:12px;border: none;" class="c"><?php echo $sheets->bank_account; ?></td>
+   <!-- <td style="font-size:12px;border: none;" class="c"><?php echo $sheets->bank_account; ?></td>
    <td style="font-size:12px;border: none;" class="c"><?php echo $sheets->account_no; ?></td>
-   <td style="font-size:12px;border: none;" class="c"><?php echo number_format($sheets->salary); ?></td>
+   <td style="font-size:12px;border: none;" class="c"><?php echo number_format($sheets->salary); ?></td> -->
  </tr>
  <?php endforeach; ?>
  <?php endforeach; ?>
  <tr>
-   <td style="font-size:12px;border: none;" class="c"><b>TOTAL</b></td>
+   <!-- <td style="font-size:12px;border: none;" class="c"><b>TOTAL</b></td> -->
    <td style="font-size:12px;border: none;" class="c"><b></b></td>
    <td style="font-size:12px;border: none;" class="c"><b><?php //echo number_format($total_cashDepost->cash_depost); ?></b></td>
    <td style="font-size:12px;border: none;" class="c"><b><?php //echo number_format($total_withdrawal->cash_withdrowal); ?></b></td>
    <td style="font-size:12px;border: none;" class="c"></td>
    <td style="font-size:12px;border: none;" class="c"></td>
    <td style="font-size:12px;border: none;" class="c"></td>
-   <td style="font-size:12px;border: none;" class="c"><b><?php echo number_format($total_salary->total_pay); ?></b></td>
+   <td style="font-size:12px;border: none;" class="c"><b></b></td>
  </tr>
 
 </table>

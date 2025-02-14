@@ -738,10 +738,12 @@ return true;
               // print_r($phone);
               //     exit();
 
+         
              $this->load->model('queries');
              $check = $this->queries->check_name($f_name,$m_name,$l_name,$phone);
              if ($check == TRUE) {
-             $this->session->set_flashdata('error','This customer Aledy Registered');
+             $this->session->set_flashdata('error','This customer is already registered in the system.
+');
               return redirect('oficer/customer');
              }elseif($check == FALSE){
               $date = date("Y-m-d");
@@ -2508,7 +2510,7 @@ $this->db->query("INSERT INTO tbl_outstand (`comp_id`,`loan_id`,`blanch_id`,`loa
  
           $data_depost = $this->queries->get_customer_Loandata($customer_id);
           $customer_data = $this->queries->get_customerData($customer_id);
-          $phones = $customer_data->phone_no;
+          $phone= $customer_data->phone_no;
           $full_name = $customer_data->f_name;
           $admin_data = $this->queries->get_admin_role($comp_id);
           $remain_balance = $data_depost->balance;
@@ -2669,12 +2671,13 @@ $this->db->query("INSERT INTO tbl_outstand (`comp_id`,`loan_id`,`blanch_id`,`loa
          $total_depost = $this->queries->get_sum_dapost($loan_id);
          $loan_int = $loan_restoration->loan_int;
          $remain_loan = $loan_int - $total_depost->remain_balance_loan;
+        
             //sms send
           $today = date("Y-m-d") ;
          $date = date("d/m/Y");
-          $sms = 'Ndugu, '.$full_name. ' '. ' Umefanya malipo ya TZS.' .number_format($new_balance). ' leo tarehe  ' . $date. ' ' . $comp_name.' Mpokeaji '.$role . ' bado unadaiwa kiasi cha TZS.'.$remain_loan;
+         $sms = 'Mpendwa '.$full_name.', tumepokea malipo yako ya TZS '.number_format($new_balance).' tarehe '.$date.'. Deni lako lililobaki kufikia tarehe '.$date.' ni TZS '.number_format($remain_loan).'. Asante kwa kufanya biashara nasi - '.$comp_name.'.';
           $massage = $sms;
-          $phone = $phones;
+          
 
           $loan_ID = $loan_id;
           @$out_check = $this->queries->get_outstand_total($loan_id);
@@ -2756,9 +2759,9 @@ $this->db->query("INSERT INTO tbl_outstand (`comp_id`,`loan_id`,`blanch_id`,`loa
           $today = date("Y-m-d") ;
          $date = date("d/m/Y");
           
-          $sms = 'Ndugu, '.$full_name. ' '. ' Umefanya malipo ya TZS.' .number_format($new_balance). ' leo tarehe  ' . $date. ' ' . $comp_name.' Mpokeaji '.$role . ' bado unadaiwa kiasi cha TZS.'.$remain_loan;
-          $massage = $sms;
-          $phone = $phones;
+         $massage = 'Mpendwa '.$full_name.', tumepokea malipo yako ya TZS '.number_format($new_balance).' tarehe '.$date.'. Deni lako lililobaki kufikia tarehe '.$date.' ni TZS '.number_format($remain_loan).'. Asante kwa kufanya biashara nasi - '.$comp_name.'.';
+        
+          
 
 
            $loan_ID = $loan_id;
@@ -2870,16 +2873,56 @@ $this->db->query("INSERT INTO tbl_outstand (`comp_id`,`loan_id`,`blanch_id`,`loa
           
           }
 
-         $total_depost = $this->queries->get_sum_dapost($loan_id);
-         $loan_int = $loan_restoration->loan_int;
-         $remain_loan = $loan_int - $total_depost->remain_balance_loan;
-            //sms send
-         $today = date("Y-m-d") ;
-         $date = date("d/m/Y");
-         $sms = 'Ndugu, '.$full_name. ' '. ' Umefanya malipo ya TZS.' .number_format($new_balance). ' leo tarehe  ' . $date. ' ' . $comp_name.' Mpokeaji '.$role . ' bado unadaiwa kiasi cha TZS.'.$remain_loan;
+          $total_depost = $this->queries->get_sum_dapost($loan_id);
+          $loan_int = $loan_restoration->loan_int;
+          $remain_loan = $loan_int - $total_depost->remain_balance_loan;
+          $days_remain = $this->queries->get_loan_active_customer($customer_id);
+          $siku_baki = date("d-m-Y ", strtotime($days_remain->loan_end_date)); // Tarehe ya mwisho wa mkataba
+          $mkopo_tarehe = $days_remain->loan_stat_date; // Tarehe ya kuanza kwa mkopo
+          $today = date("Y-m-d");
+          $date = date("d/m/Y");
+          
+          // Hesabu siku zilizobaki au zilizopita
+          $remain_days = (strtotime($siku_baki) - strtotime($today)) / (60 * 60 * 24);
+          
+          if ($remain_days == 0) {
+              // // Mteja amelipa siku ya mwisho ya mkataba
+              // $massage = 'Mpendwa '.$full_name.', tumepokea malipo yako ya Mbele ya TZS '.number_format($new_balance).
+              // '. Deni lako lililobaki kufikia leo tarehe '.$date.' ni TZS '.number_format($remain_loan).
+              // '. Leo ni siku ya mwisho wa mkataba wako - '.$comp_name.'.';
 
-          $massage = $sms;
-          $phone = $phones;
+              $massage = 'Ndugu '.$full_name.', malipo yako ya '.number_format($new_balance).' yamepokelewa '.$date.'. Deni lako ni '.number_format($remain_loan).'. tarehe ya Leo ni siku ya mwisho wa mkataba wako - '.$comp_name.'.';
+            
+
+          } elseif ($remain_days > 0) {
+              // Mteja amelipa kabla ya mkataba kuisha
+              // $massage = 'Mpendwa '.$full_name.', tumepokea malipo yako ya TZS '.number_format($new_balance).
+              // ' tarehe '.$date.'. Deni lako lililobaki kufikia leo ni TZS '.number_format($remain_loan).'. '.
+              // 'Umebakiwa na siku '.$remain_days.' kabla ya mkataba kuisha tarehe '.date("d/m/Y", strtotime($siku_baki)).'. '.
+              // 'Asante kwa kufanya malipo - '.$comp_name.'.';
+
+              $massage = 'Mpendwa '.$full_name.', malipo yako '.number_format($new_balance).' yamepokelewa '.$date.'. Deni lililobaki ni '.number_format($remain_loan).'. Umebakiwa na siku '.$remain_days.' mkataba uishe '.$siku_baki.''.$comp_name.'.';
+
+          } else {
+              // Mdaiwa sugu - amelipa baada ya tarehe ya mwisho ya mkataba
+              // $massage = 'Mpendwa '.$full_name.', malipo yako ya TZS '.number_format($new_balance).
+              // ' yamepokelewa tarehe '.$date.'. Tafadhali fahamu kuwa umechelewa kulipa na sasa unahesabika kama mdaiwa sugu. '.
+              // 'Deni lako lililobaki ni TZS '.number_format($remain_loan).'. Tafadhali lipa haraka ili kuepuka hatua zaidi. - '.$comp_name.'.';
+
+              $massage = 'Ndugu ' .$full_name.', TZS '.number_format($new_balance).' zimepokelewa tarehe'.$date.'. Umechelewa kulipa, deni lako ni TZS '.number_format($remain_loan).'. Lipa haraka kuepuka hatua zaidi. - '.$comp_name.'.';
+             
+
+          }
+          
+         
+        //  print_r( $remain_days );
+        //        exit();
+            //sms ya malipo ni hii
+        
+        
+
+         
+          
 
           if ($company_data->sms_status == 'YES'){
              $this->sendsms($phone,$massage);
@@ -5239,7 +5282,8 @@ public function deposit_loan_saving(){
          $loan_int = $loan_restoration->loan_int;
          $remain_loan = $loan_int - $total_depost->remain_balance_loan;
             //sms send
-            $sms = 'Ndugu, '.$full_name. ' '. ' Umefanya malipo ya TZS.' .number_format($new_balance). ' leo tarehe  ' . $date. ' ' . $comp_name.' Mpokeaji '.$role . ' bado unadaiwa kiasi cha TZS.'.$remain_loan;
+            $sms = 'Mpendwa '.$full_name.', tumepokea malipo yako ya TZS '.number_format($new_balance).' tarehe '.$date.'. Deni lako lililobaki kufikia tarehe '.$date.' ni TZS '.number_format($remain_loan).'. Asante kwa kufanya biashara nasi - '.$comp_name.'.';
+
           $massage = $sms;
           $phone = $phones;
 
@@ -5382,9 +5426,9 @@ public function deposit_loan_saving(){
         $code = $loan_code->code;
         $phones = $loan_code->phone_no;
         $comp_id = $loan_code->comp_id;
-         
-        $sms = 'Namba ya Siri Ya Mkopo Wako ni ' .$code;
-        $massage = $sms;
+        $compdata = $this->queries->get_companyData($comp_id);
+        $comp_name=$compdata->comp_name;
+        $massage = 'Habari, namba yako ya siri kwa ajili ya kutolewa mkopo ni ' . $code . '. Asante kwa kuchagua huduma zetu. - ' . $comp_name;
         $phone = '0'.substr($phones, 3,10);
         // print_r($massage);
         //      exit();
@@ -5431,7 +5475,7 @@ public function deposit_loan_saving(){
 public function sendsms($phone,$massage){
     //$phone = '0753871034';
     //$sms = 'mapenzi yanauwa';
-    $api_key = '5IxG2r3u7S17m.OF9B.ova4q1Z';
+    $api_key = 'FdWFjqI.bkLJ92iE69uyJi0/jB';
     //$api_key = 'qFzd89PXu1e/DuwbwxOE5uUBn6';
     //$curl = curl_init();
 $ch = curl_init();

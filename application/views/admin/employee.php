@@ -67,12 +67,12 @@
                                 </div>
                                 <!-- <input type="hidden" name="position_id" value="1">
  -->                                <div class="col-lg-3 form-group-sub">
-                                    <label  class="form-control-label">*Username:</label>
+                                    <label  class="form-control-label">*System Username:</label>
                                 <input type="text" name="username" placeholder="Username" autocomplete="off" class="form-control" required>
                                 </div>
 
                                 <div class="col-lg-3 form-group-sub">
-                                    <label  class="form-control-label">*Sex:</label>
+                                    <label  class="form-control-label">*Gender:</label>
                                 <select type="text" name="empl_sex" class="form-control" data-required="true">
                                 <option value="">Select Sex</option>
                                 <option value="male">Male</option>
@@ -85,19 +85,21 @@
                                 </div>
 
                                 <div class="col-lg-3 form-group-sub">
-                                    <label  class="form-control-label">*Payee:</label>
-                                <select type="text" name="pays" class="form-control" required>
-                                <option value="">Select</option>
-                                <option value="yes">Yes</option>
-                                <option value="no">No</option>
-                            </select>
-                                </div>
+                                <label class="form-control-label">*Payee:</label>
+                                <select name="pays" class="form-control" required disabled>
+                                    <option value="">Select</option>
+                                    <option value="yes">Yes</option>
+                                    <option value="no" selected>No</option>
+                                </select>
+                             </div>
+
+
+
                             <div class="col-lg-3 form-group-sub">
                                     <label  class="form-control-label">*Pay NSSF:</label>
-                            <select type="text" name="pay_nssf" class="form-control" required>
+                            <select type="text" name="pay_nssf" class="form-control" required disabled>
                                 <option value="">Select</option>
-                                <option value="yes">Yes</option>
-                                <option value="no">No</option>
+                                <option value="no" selected>No</option>
                             </select>
                                 </div>
                                     <div class="col-lg-3 form-group-sub">

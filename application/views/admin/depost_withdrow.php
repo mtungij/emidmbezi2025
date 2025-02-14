@@ -59,7 +59,7 @@
                                    <!--  <i class="fa fa-star"></i> -->
                                    <div class="profile-image"> <img src="<?php echo base_url().'assets/img/sig.jpg'; ?>" class="rounded-circle" alt="Gualantors image" style="width: 130px;height: 135px;">
                                       </div>
-                                    <small>Gualantors Picture</small>
+                                    <small>Guarantors Picture</small>
                                 </div>
                             </div>
                            
@@ -339,19 +339,19 @@
                                             <?php }elseif (@$customer_loan->loan_stat_date == FALSE) {
                                              ?>
                                              YY-MM-DD
-                                             <?php } ?> - End Date:  <?php if (@$customer_loan->loan_end_date == TRUE) {
+                                             <?php } ?> - End Agreement Date:  <?php if (@$customer_loan->loan_end_date == TRUE) {
                                                  ?>
                                                  <?php echo substr(@$customer_loan->loan_end_date, 0,10); ?>
                                             <?php }elseif (@$customer_loan->loan_end_date == FALSE) {
                                              ?>
                                              YY-MM-DD
-                                             <?php } ?> <br> End Deposit Amount : <?php echo number_format(@$end_deposit->depost); ?> <br>Deposit Time : <?php echo @$end_deposit->deposit_day; ?></h7>
+                                             <?php } ?> <br> Last Deposited Amount : <?php echo number_format(@$end_deposit->depost); ?> <br>Deposited Time : <?php echo @$end_deposit->deposit_day; ?></h7>
             </div>
             <?php echo form_open("admin/deposit_loan/{$customer->customer_id}"); ?>
             <div class="modal-body">
                 <div class="row clearfix">
                     <div class="col-md-4 col-6">
-                    <span>Total Loan</span>
+                    <span>Loan Amount</span>
                     <input type="text" class="form-control" value="<?php echo number_format(@$customer_loan->loan_int); ?>" readonly>     
                     </div>
                      <div class="col-md-4 col-6">
@@ -364,7 +364,7 @@
                                                  <?php } ?>" readonly>     
                     </div>
                      <div class="col-md-4 col-12">
-                    <span>Remain Debit</span>
+                    <span>Remain Debt</span>
                     <input type="text" class="form-control" value="<?php if (@$total_deposit->total_Deposit > @$customer_loan->loan_int) {
                                                  ?>
                                                  0.00
@@ -389,7 +389,7 @@
                     </div>
 
                     <div class="col-md-6 col-6">
-                    <span>Penart</span>
+                    <span>calculated penalty</span>
                     <input type="text" class="form-control" value="<?php echo number_format($total_penart->total_penart - $total_deposit_penart->total_penart_paid); ?>.00" readonly style="color:red">     
                     </div>
                     <div class="col-md-6 col-6">
@@ -410,7 +410,7 @@
                     <input type="hidden" value="<?php echo $customer->comp_id; ?>" name="comp_id">
                     <input type="hidden" value="<?php echo $customer->blanch_id; ?>" name="blanch_id">
                     <input type="hidden" value="<?php echo $customer_loan->loan_id; ?>" name="loan_id">
-                     <input type="hidden" value="LOAN RETURN" name="description">
+                     <input type="hidden" value="" name="description">
                     <?php $date = date("Y-m-d"); ?>
                     <div class="col-md-12 col-12">
                     <span>Deposit Date</span>

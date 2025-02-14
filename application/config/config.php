@@ -25,8 +25,8 @@ date_default_timezone_set('Africa/Dar_es_Salaam');
 | a PHP script and you can easily do that on your own.
 |
 */
-// $config['base_url'] = 'https://derick-finance.phamasoft.com/'; 
-// $config['base_url'] = 'http://localhost:8048/'; 
+
+// $config['base_url'] = 'http://localhost:8093/'; 
 $config['base_url'] = 'https://emidmbezi.loan-pocket.com/'; 
 
 /*
