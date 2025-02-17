@@ -86,10 +86,10 @@
 
                                 <div class="col-lg-3 form-group-sub">
                                 <label class="form-control-label">*Payee:</label>
-                                <select name="pays" class="form-control" required disabled>
+                                <select name="pays" class="form-control" required>
                                     <option value="">Select</option>
                                     <option value="yes">Yes</option>
-                                    <option value="no" selected>No</option>
+                                    <option value="no">No</option>
                                 </select>
                              </div>
 
@@ -97,9 +97,10 @@
 
                             <div class="col-lg-3 form-group-sub">
                                     <label  class="form-control-label">*Pay NSSF:</label>
-                            <select type="text" name="pay_nssf" class="form-control" required disabled>
+                            <select type="text" name="pay_nssf" class="form-control" required >
                                 <option value="">Select</option>
-                                <option value="no" selected>No</option>
+                                <option value="no" >No</option>
+                                <option value="yes" >yes</option>
                             </select>
                                 </div>
                                     <div class="col-lg-3 form-group-sub">
