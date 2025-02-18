@@ -3954,7 +3954,10 @@ $this->db->query("INSERT INTO tbl_outstand (`comp_id`,`loan_id`,`blanch_id`,`loa
               // '. Deni lako lililobaki kufikia leo tarehe '.$date.' ni TZS '.number_format($remain_loan).
               // '. Leo ni siku ya mwisho wa mkataba wako - '.$comp_name.'.';
 
-              $massage = 'Ndugu '.$full_name.', malipo yako ya '.number_format($new_balance).' yamepokelewa '.$date.'. Deni lako ni '.number_format($remain_loan).'. tarehe ya Leo ni siku ya mwisho wa mkataba wako - '.$comp_name.'.';
+              $massage = 'Mpendwa '.$full_name.', tumepokea malipo yako ya TZS '.number_format($new_balance).
+           ' tarehe '.$date.'. Deni lako lililobaki kufikia leo ni TZS '.number_format($remain_loan).'. '.
+           $comp_name.'.';
+
             
 
           } elseif ($remain_days > 0) {
@@ -3964,7 +3967,10 @@ $this->db->query("INSERT INTO tbl_outstand (`comp_id`,`loan_id`,`blanch_id`,`loa
               // 'Umebakiwa na siku '.$remain_days.' kabla ya mkataba kuisha tarehe '.date("d/m/Y", strtotime($siku_baki)).'. '.
               // 'Asante kwa kufanya malipo - '.$comp_name.'.';
 
-              $massage = 'Mpendwa '.$full_name.', malipo yako '.number_format($new_balance).' yamepokelewa '.$date.'. Deni lililobaki ni '.number_format($remain_loan).'. Umebakiwa na siku '.$remain_days.' mkataba uishe '.$siku_baki.''.$comp_name.'.';
+              $massage = "Mpendwa $full_name, malipo yako TZS " . number_format($new_balance) . 
+              " yamepokelewa $date. Deni lililobaki ni TZS " . number_format($remain_loan) . 
+              ". $comp_name.";
+   
 
           } else {
               // Mdaiwa sugu - amelipa baada ya tarehe ya mwisho ya mkataba
